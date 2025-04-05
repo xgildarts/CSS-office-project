@@ -13,6 +13,8 @@ const form = document.querySelector("form");
 
 let checkBoxes = [row_1_checkbox, row_2_checkbox, row_3_checkbox, row_4_checkbox];
 let inputs = [taking_board_exam, job_application, school_admission_and_transferes, others];
+let valuesForInputs = [];
+
 
 document.addEventListener("DOMContentLoaded", function(e){
     check();
@@ -20,17 +22,28 @@ document.addEventListener("DOMContentLoaded", function(e){
 
 
 function check() {
-    for(let i = 0; i < checkBoxes.length; i++) {
+
+    for(let i = 0; i < inputs.length - 1; i++) {
         checkBoxes[i].addEventListener("change", function(e){
             if(checkBoxes[i].checked) {
-                inputs[i].disabled = false;
-                inputs[i].required = true;
+                valuesForInputs.push(inputs[i].value);
             } else {
-                inputs[i].disabled = true;
-                inputs[i].required = false;
+                valuesForInputs.splice(i, 1);
             }
         });
     }
+
+    checkBoxes[3].addEventListener("change", function(e){
+        if(checkBoxes[3].checked) {
+            inputs[3].disabled = false;
+            inputs[3].required = true;
+        } else {
+            inputs[3].disabled = true;
+            inputs[3].required = false;
+        }
+    });
+
+
 }
 
 form.addEventListener("submit", function(e){
@@ -49,40 +62,67 @@ form.addEventListener("submit", function(e){
         let purpose = "";
 
         for(let i = 0; i < inputs.length; i++) {
-            if(inputs[i].value) {
-                purpose += `, ${inputs[i].value}`;
+            if(i == 0) {
+                if(valuesForInputs[i] !== undefined && valuesForInputs[i].trim() !== "") {
+                    purpose += `${valuesForInputs[i]}`;
+                }
+            } else {
+                if(valuesForInputs[i] !== undefined && valuesForInputs[i].trim() !== "") {
+                    purpose += `, ${valuesForInputs[i]}`;
+                }
             }
         }
 
-        console.log(purpose);
+        if(others.value) {
+            if(purpose.trim() !== "") {
+                purpose += ", " + others.value;
+            } else {
+                purpose += others.value;
+            }
+        }
+
 
         const text =    `
-                        Dear ${fullname},
+                        Dear Sir/Mam,<br>
+                        I hope this email finds you well. My name is ${fullname}, a ${course} student at Panpacific University. I am writing to kindly request a Good Moral Certificate for ${purpose}.
 
-                        I hope this email finds you well. My name is ${fullname}, a ${course} student at Panpacific University. I am writing to kindly request a Good Moral Certificate for ${taking_board_exam.value}.
+                        Below are my personal details:<br>
 
-                        Below are my personal details:
+                        Full Name: ${fullname}<br>
 
-                        Full Name: Steven John A. Agustin
+                        Student ID: ${studentId}<br>
 
-                        Student ID: 1231377
+                        Course and Year Level: ${course}<br>
 
-                        Course and Year Level: BSIT-2
+                        Contact Number: ${contactNumber}<br>
 
-                        Contact Number: 09481239328
+                        Email Address: ${email}<br>
 
-                        Email Address: stevenxd81@yahoo.com
+                        I would greatly appreciate it if you could issue the certificate at your earliest convenience.<br>
 
-                        I would greatly appreciate it if you could issue the certificate at your earliest convenience.
+                        Thank you very much for your time and consideration. Should you need any further information, please feel free to contact me.<br><br>
 
-                        Thank you very much for your time and consideration. Should you need any further information, please feel free to contact me.
-
-                        Best regards,
-                        Steven John A. Agustin
-                        [Your Contact Number]
-                        [Your Email Address]
+                        Best regards,<br>
+                        ${fullname}<br>
+                        ${contactNumber}<br>
+                        ${email}
 
                         `;
+        const payload = {
+            body: text
+        };
+
+        
+        fetch("http://localhost/CSS/send_email_api.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then((res) => res.json())
+        .then((val) => console.log(val))
+        .catch((err) => console.error(err));
 
     } 
     

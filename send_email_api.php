@@ -6,7 +6,15 @@ require 'vendor/phpmailer/phpmailer/src/Exception.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: POST, GET");
+
 $mail = new PHPMailer(true);
+
+$package = file_get_contents("php://input");
+
+$text = json_decode($package, true);
 
 try {
     //Server settings
@@ -25,16 +33,16 @@ try {
     // Content
     $mail->isHTML(true);  // Set email format to HTML
     $mail->Subject = 'Subject';
-    $mail->Body    = 'Name: Steven';
-    $mail->AltBody = 'This is the plain text version of the email content.';
+    $mail->Body    = $text["body"];
+    $mail->AltBody = $text["body"];
 
     // Send email
     if ($mail->send()) {
-        echo 'Message has been sent successfully!';
+        echo json_encode(['Message has been sent successfully!']);
     } else {
-        echo 'Message could not be sent.';
+        echo json_encode(['Message could not be sent.']);
     }
 } catch (Exception $e) {
-    echo "Mailer Error: {$mail->ErrorInfo}";
+    echo json_encode(["Mailer Error: {$mail->ErrorInfo}"]);
 }
 ?>
