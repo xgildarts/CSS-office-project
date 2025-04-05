@@ -27,7 +27,7 @@ try {
     $mail->Port = 587;  // Port 587 is recommended for STARTTLS
 
     //Recipients
-    $mail->setFrom('xnatsu25@gmail.com', 'Good Moral Requests');  // Set the "From" address
+    $mail->setFrom('stevenjohnagustin25@gmail.com', 'Good Moral Requests');  // Set the "From" address
     $mail->addAddress('steven.agustin.ecoast@panpacificu.edu.ph', 'Admin');  // Add the recipient's address
 
     // Content

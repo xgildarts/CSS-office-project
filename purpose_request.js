@@ -121,7 +121,7 @@ form.addEventListener("submit", function(e){
             body: JSON.stringify(payload)
         })
         .then((res) => res.json())
-        .then((val) => console.log(val))
+        .then((val) => window.alert(val))
         .catch((err) => console.error(err));
 
     } 
