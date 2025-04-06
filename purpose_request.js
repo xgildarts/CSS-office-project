@@ -4,6 +4,8 @@ const row_2_checkbox = document.querySelector(".row_2_checkbox");
 const row_3_checkbox = document.querySelector(".row_3_checkbox");
 const row_4_checkbox = document.querySelector(".row_4_checkbox");
 
+const submit_btn = document.querySelector(".submit_btn");
+
 let taking_board_exam = document.querySelector(".taking_board_exam");
 let job_application = document.querySelector(".job_application");
 let school_admission_and_transferes = document.querySelector(".school_admission_and_transferes");
@@ -109,9 +111,13 @@ form.addEventListener("submit", function(e){
 
                         `;
         const payload = {
+            sender_name: fullname,
             body: text
         };
 
+        submit_btn.disabled = true;
+        submit_btn.textContent = "Sending...";
+        submit_btn.style.pointerEvents = 'none';
         
         fetch("http://localhost/CSS/send_email_api.php", {
             method: "POST",
@@ -121,8 +127,28 @@ form.addEventListener("submit", function(e){
             body: JSON.stringify(payload)
         })
         .then((res) => res.json())
-        .then((val) => window.alert(val))
-        .catch((err) => console.error(err));
+        .then((val) =>  {
+
+            window.alert(val);
+            submit_btn.disabled = false;
+            submit_btn.textContent = "Submit";
+            submit_btn.style.pointerEvents = 'auto';
+
+            for(let i = 0; i < checkBoxes.length; i++) {
+                checkBoxes[i].checked = false;
+            }
+
+            checkBoxes[3].value = "";
+
+        })
+        .catch((err) =>  {
+
+            console.error(err);
+            submit_btn.disabled = false;
+            submit_btn.textContent = "Submit";
+            submit_btn.pointerEvents = 'auto';
+            
+        });
 
     } 
     
