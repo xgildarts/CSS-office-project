@@ -119,7 +119,7 @@ form.addEventListener("submit", function(e){
         submit_btn.textContent = "Sending...";
         submit_btn.style.pointerEvents = 'none';
         
-        fetch("http://localhost/CSS/send_email_api.php", {
+        fetch("http://192.168.100.222/CSS/send_email_api.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -129,16 +129,20 @@ form.addEventListener("submit", function(e){
         .then((res) => res.json())
         .then((val) =>  {
 
-            window.alert(val);
-            submit_btn.disabled = false;
-            submit_btn.textContent = "Submit";
-            submit_btn.style.pointerEvents = 'auto';
-
-            for(let i = 0; i < checkBoxes.length; i++) {
-                checkBoxes[i].checked = false;
+            if(val.status) {
+                window.location.href = "successfully_submitted.html";
+                submit_btn.disabled = false;
+                submit_btn.textContent = "Submit";
+                submit_btn.style.pointerEvents = 'auto';
+                for(let i = 0; i < checkBoxes.length; i++) {
+                    checkBoxes[i].checked = false;
+                }
+                checkBoxes[3].value = "";
+            } else {
+                window.alert(val.status);
             }
 
-            checkBoxes[3].value = "";
+            
 
         })
         .catch((err) =>  {
@@ -147,6 +151,7 @@ form.addEventListener("submit", function(e){
             submit_btn.disabled = false;
             submit_btn.textContent = "Submit";
             submit_btn.pointerEvents = 'auto';
+            checkBoxes[3].value = "";
             
         });
 

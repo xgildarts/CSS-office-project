@@ -3,33 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/5cff1fbee6.js" crossorigin="anonymous"></script>
-
+    <title>Request Form</title>
+    <link rel="stylesheet" href="request_form.css">
 </head>
 <body>
-    <form>
-        <div class="row_1">
-                <img src="Images/Logo.png">
-        </div>
-        <div class="row_2">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" required>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-            </div>
+    <div class="form_holder">
+        <form>
 
-        </div>
-        <div class="row_3">
-            <button type="submit">Log In</button>
-        </div>
+            <h1>Request For Good Moral</h1>
+            <h3>Personal Information</h3>
+
+            <div class="row_1">
+                <label for="fname">First Name</label>
+                <input autocomplete="on" type="text" id="fname" name="firstname" required>
+            </div>
+            <div class="row_2">
+                <label for="lname">Last Name</label>
+                <input autocomplete="on" type="text" id="lname" name="lastname" required>
+            </div>
+            <div class="row_3">
+                <label for="mname">Middle Name</label>
+                <input autocomplete="on" type="text" id="mname" name="middlename" required>
+            </div>
+            <div class="row_4">
+                <label for="course">Course & Year Level</label>
+                <input autocomplete="on" type="text" id="course" name="course" required>
+            </div>
+            <div class="row_5">
+                <label for="id">Student Id</label>
+                <input autocomplete="on" type="text" id="id" name="student_id" required>
+            </div>
+            <div class="row_6">
+                <label for="contact_number">Contact Number</label>
+                <input autocomplete="on" type="tel" id="contact_number" name="contact_number" required>
+            </div>
+            <div class="row_7">
+                <label for="email">Email</label>
+                <input autocomplete="on" type="email" id="email" name="email" required>
+            </div>
+            <div class="row_8">
+                <button type="submit">Next</button>
+            </div>
+            
+        </form>
     </div>
-    </form>
 
+    <script src="request_form.js"></script>
     
 </body>
 </html>

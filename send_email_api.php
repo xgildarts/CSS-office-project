@@ -26,22 +26,35 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Use STARTTLS for encryption
     $mail->Port = 587;  // Port 587 is recommended for STARTTLS
 
-    //Recipients
-    $mail->setFrom('stevenjohnagustin25@gmail.com', $text["sender_name"]);  // Set the "From" address
-    $mail->addAddress('steven.agustin.ecoast@panpacificu.edu.ph', 'Admin');  // Add the recipient's address
+    $recipients = ["stevenjohnagustin25@gmail.com", 'steven.agustin.ecoast@panpacificu.edu.ph'];
 
-    // Content
-    $mail->isHTML(true);  // Set email format to HTML
-    $mail->Subject = 'Subject';
-    $mail->Body    = $text["body"];
-    $mail->AltBody = $text["body"];
+    $is_sent = false;
+
+   foreach($recipients as $receiver) {
+
+        $mail->clearAllRecipients();
+
+        //Recipients
+        $mail->setFrom('stevenjohnagustin25@gmail.com', $text["sender_name"]);  // Set the "From" address
+        $mail->addAddress($receiver, 'Admin');  // Add the recipient's address
+
+        // Content
+        $mail->isHTML(true);  // Set email format to HTML
+        $mail->Subject = 'Subject';
+        $mail->Body    = $text["body"];
+        $mail->AltBody = $text["body"];
+
+        $is_sent = $mail->send();
+
+   }
 
     // Send email
-    if ($mail->send()) {
-        echo json_encode(['Message has been sent successfully!']);
+    if ($is_sent) {
+        echo json_encode(['status' => true]);
     } else {
-        echo json_encode(['Message could not be sent.']);
+        echo json_encode(['status' => false]);
     }
+
 } catch (Exception $e) {
     echo json_encode(["Mailer Error: {$mail->ErrorInfo}"]);
 }

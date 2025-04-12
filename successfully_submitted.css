@@ -1,0 +1,60 @@
+body{
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.outer_div {
+    width: 18.669vw;
+    height: 72vh;
+    padding: 70px;
+    box-shadow: 0 0 10px black;
+    border-radius: 20px;
+    margin-top: 25px;
+    background: linear-gradient(-30deg, #3531ed, #34a444);
+}
+
+.inner_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url("images/Logo.png");
+    background-attachment: fixed;
+    background-size: 23%;
+    gap: 20px;
+    background-repeat: no-repeat;
+    background-position: 50% 40%;
+}
+
+.inner_div i {
+    margin-top: 100px;
+    color: hsl(120, 100%, 17%);
+}
+
+.inner_div h2 {
+    text-align: center;
+    font-weight: bolder;
+}
+
+/*IPhone 14 Pro Max*/
+@media (max-width: 430px) and (max-height: 932px) {
+    .outer_div {
+        width: 65vw;
+        height: 75vh;
+        margin-top: 70px;
+        padding: 50px;
+    }
+    .inner_div {
+        background-size: 80%;   
+    }
+}
+
+/*IPhone X Pro Max*/
+@media (max-width: 375px) and (max-height: 812px) {
+    .outer_div  {
+        width: 65vw;
+        height: 70vh;
+        margin-top: 5px;
+        padding: 50px;
+    }
+}
