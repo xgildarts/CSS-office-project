@@ -119,7 +119,7 @@ form.addEventListener("submit", function(e){
         submit_btn.textContent = "Sending...";
         submit_btn.style.pointerEvents = 'none';
         
-        fetch("http://192.168.100.222/CSS/send_email_api.php", {
+        fetch("https://xgildarts.github.io/CSS-office-project/send_email_api.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
