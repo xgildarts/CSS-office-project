@@ -16,5 +16,26 @@
             <h2>Successfully Submitted</h2>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(e){
+            const fname = sessionStorage.getItem("fname");
+            const mname = sessionStorage.getItem("mname");
+            const lname = sessionStorage.getItem("lname");
+            const course = sessionStorage.getItem("course");
+            const id = sessionStorage.getItem("id");
+            const contact_number = sessionStorage.getItem("contact_number");
+            const email = sessionStorage.getItem("email");
+            if(!(fname && mname && lname && course && id && contact_number && email)) {
+                window.location.href = "index.html";
+            }
+            sessionStorage.removeItem("fname");
+            sessionStorage.removeItem("mname");
+            sessionStorage.removeItem("lname");
+            sessionStorage.removeItem("course");
+            sessionStorage.removeItem("id");
+            sessionStorage.removeItem("contact_number");
+            sessionStorage.removeItem("email");
+        });
+    </script>
 </body>
 </html>

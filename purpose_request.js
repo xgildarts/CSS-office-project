@@ -19,6 +19,16 @@ let valuesForInputs = [];
 
 
 document.addEventListener("DOMContentLoaded", function(e){
+    const fname = sessionStorage.getItem("fname");
+    const mname = sessionStorage.getItem("mname");
+    const lname = sessionStorage.getItem("lname");
+    const course = sessionStorage.getItem("course");
+    const id = sessionStorage.getItem("id");
+    const contact_number = sessionStorage.getItem("contact_number");
+    const email = sessionStorage.getItem("email");
+    if(!(fname && mname && lname && course && id && contact_number && email)) {
+        window.location.href = "index.html";
+    }
     check();
 });
 
@@ -115,11 +125,29 @@ form.addEventListener("submit", function(e){
             body: text
         };
 
+        //Check if there is checked
+        let isCheckedOneOfThem = false;
+
+        for(let i = 0; i < checkBoxes.length; i++) {
+            if(checkBoxes[i].checked) {
+                isCheckedOneOfThem = true;
+                break;
+            } else {
+                isCheckedOneOfThem = false;
+            }
+        }
+            
+
+        if(!isCheckedOneOfThem) {
+            window.alert("Please check the following choices!");
+            return;
+        }
+
         submit_btn.disabled = true;
         submit_btn.textContent = "Sending...";
         submit_btn.style.pointerEvents = 'none';
         
-        fetch("http://goodmoralrequestform.infinityfreeapp.com/send_email_api.php", {
+        fetch("http://192.168.100.222/send_email_api.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
