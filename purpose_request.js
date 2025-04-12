@@ -119,7 +119,7 @@ form.addEventListener("submit", function(e){
         submit_btn.textContent = "Sending...";
         submit_btn.style.pointerEvents = 'none';
         
-        fetch("https://xgildarts.github.io/CSS-office-project/send_email_api.php", {
+        fetch("http://goodmoralrequestform.infinityfreeapp.com/send_email_api.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -130,7 +130,6 @@ form.addEventListener("submit", function(e){
         .then((val) =>  {
 
             if(val.status) {
-                window.location.href = "successfully_submitted.html";
                 submit_btn.disabled = false;
                 submit_btn.textContent = "Submit";
                 submit_btn.style.pointerEvents = 'auto';
@@ -138,6 +137,7 @@ form.addEventListener("submit", function(e){
                     checkBoxes[i].checked = false;
                 }
                 checkBoxes[3].value = "";
+                window.location.href = "successfully_submitted.html";
             } else {
                 window.alert(val.status);
             }
