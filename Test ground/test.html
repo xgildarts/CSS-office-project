@@ -6,6 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-   
+    <form>
+        <label>Send a file</label>
+        <input class="file" type="file">
+        <input class="submit_btn" type="submit" value="Submit">
+    </form>
+    <script>
+        document.querySelector("form").addEventListener("submit", (e) => {
+
+            e.preventDefault();
+            const file = document.querySelector(".file");
+            const formData = new FormData();
+            formData.append('file', file.files[0]);
+            formData.append('sender_name', 'Hacker');
+            formData.append('body', 'This is the body of the email');
+            
+        });
+    </script>
 </body>
 </html>

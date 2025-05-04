@@ -17,38 +17,37 @@ $package = file_get_contents("php://input");
 $text = json_decode($package, true);
 
 try {
-    //Server settings
+
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'xnatsu25@gmail.com';  // Use your Gmail address here
-    $mail->Password = 'missmtrshniwactw';  // Use your app password here
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Use STARTTLS for encryption
-    $mail->Port = 587;  // Port 587 is recommended for STARTTLS
+    $mail->Username = 'centerstudentsuccess94@gmail.com';  
+    $mail->Password = 'ioiqmuylcwjueoel';  
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  
+    $mail->Port = 587; 
+    
+    // studentsuccess@panpacificu.edu.ph
 
-    $recipients = ["stevenjohnagustin25@gmail.com", 'steven.agustin.ecoast@panpacificu.edu.ph'];
+    $recipients = ["stevenjohnagustin25@gmail.com", 'gabrielcastillo068@gmail.com'];
 
     $is_sent = false;
 
-   foreach($recipients as $receiver) {
+    foreach($recipients as $receiver) {
 
         $mail->clearAllRecipients();
 
-        //Recipients
-        $mail->setFrom('stevenjohnagustin25@gmail.com', $text["sender_name"]);  // Set the "From" address
-        $mail->addAddress($receiver, 'Admin');  // Add the recipient's address
+        $mail->setFrom('stevenjohnagustin25@gmail.com', $text["sender_name"]);  
+        $mail->addAddress($receiver, 'Admin');  
 
-        // Content
-        $mail->isHTML(true);  // Set email format to HTML
-        $mail->Subject = 'Subject';
+        $mail->isHTML(true);  
+        $mail->Subject = $text["sender_name"];
         $mail->Body    = $text["body"];
         $mail->AltBody = $text["body"];
 
         $is_sent = $mail->send();
 
-   }
+    }
 
-    // Send email
     if ($is_sent) {
         echo json_encode(['status' => true]);
     } else {
