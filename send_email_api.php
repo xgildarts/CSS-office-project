@@ -26,9 +26,8 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  
     $mail->Port = 587; 
     
-    // studentsuccess@panpacificu.edu.ph
 
-    $recipients = ["stevenjohnagustin25@gmail.com", 'gabrielcastillo068@gmail.com'];
+    $recipients = ["successstudentcenter@gmail.com"];
 
     $is_sent = false;
 
@@ -36,8 +35,8 @@ try {
 
         $mail->clearAllRecipients();
 
-        $mail->setFrom('stevenjohnagustin25@gmail.com', $text["sender_name"]);  
-        $mail->addAddress($receiver, 'Admin');  
+        $mail->setFrom('centerstudentsuccess94@gmail.com', $text["sender_name"]);  
+        $mail->addAddress($receiver, 'Request for good moral');  
 
         $mail->isHTML(true);  
         $mail->Subject = $text["sender_name"];
